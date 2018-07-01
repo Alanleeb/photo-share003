@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180701174748) do
+ActiveRecord::Schema.define(version: 20180701184303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "albums", force: :cascade do |t|
+    t.string "photo"
+    t.string "amount"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_albums_on_client_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "album_id"
+    t.string "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["album_id"], name: "index_carts_on_album_id"
+    t.index ["client_id"], name: "index_carts_on_client_id"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.string "photo"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -44,4 +72,7 @@ ActiveRecord::Schema.define(version: 20180701174748) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "albums", "clients"
+  add_foreign_key "carts", "albums"
+  add_foreign_key "carts", "clients"
 end
