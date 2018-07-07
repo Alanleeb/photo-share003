@@ -6,6 +6,7 @@ import {
 } from 'semantic-ui-react';
 import styled from 'styled-components'
 import NavBar from './NavBar';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
@@ -16,7 +17,11 @@ class Home extends Component {
         <NavBar />
         </NavContainer>
         <HeadContainer>
-           <Header as='h1'  color="inverted">Authentic Adventure</Header>
+           <Header as='h1'>
+            
+              <StyledLink to="/" >Authentic Adventure</StyledLink>
+          
+           </Header>
            </HeadContainer>
       </HeaderImage>
   </Container>
@@ -38,7 +43,13 @@ const HeadContainer = styled.div`
 display: flex;
 align-self: flex-end;
 justify-content: center;
+color: white;
 `
+const StyledLink = styled(Link)`
+  color: white;
+  font-weight: bold;
+  font-family: Courier, monospace;
+`;
 const NavContainer = styled.div`
 display: flex;
 align-items: flex-start;
